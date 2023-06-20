@@ -4,28 +4,35 @@
   <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
   <script type="text/babel">
-    function Greeting() {
-      const [name, setName] = React.useState(
-        () => window.localStorage.getItem('name') || '',
-      )
-
-      React.useEffect(() => {
-        window.localStorage.setItem('name', name)
+    function Pet() {
+      const [name, setName] = React.useState(() => {
+        return window.localStorage.getItem('name') || ''
+      })
+      const [breed, setBreed] = React.useState(() => {
+        return window.localStorage.getItem('breed') || ''
       })
 
-      const handleChange = event => setName(event.target.value)
+      React.useEffect(() => {
+        window.localStorage.setItem('name', name);
+        window.localStorage.setItem('breed', breed);
+      })
 
-      return (
-        <div>
-          <form>
-            <label htmlFor="name">Name: </label>
-            <input value={name} onChange={handleChange} id="name" />
-          </form>
-          {name ? <strong>Hello {name}</strong> : 'Please type your name'}
-        </div>
-      )
+      const handleChangeName = event => (event.target.value)
+      const handleChangeBreed = event => (event.target. value)
+        return (
+          <div>
+            <form>
+              <label htmlFor="name">Name: </label>
+              <input value={name} onChange={handleChangeName} />
+              <br /><br />
+              <label htmlFor="breed">Breed: </label>
+              <input value={breed} onChange={handleChangeBreed} />
+            </form>
+            {name ? <span>Hello {name}, you are a {breed}!</span> : 'Please type your pets name and breed'}
+          </div>
+        )
     }
 
-    ReactDOM.render(<Greeting />, document.getElementById('root'))
+    ReactDOM.render(<Pet />, document.getElementById('root'))
   </script>
 </body>

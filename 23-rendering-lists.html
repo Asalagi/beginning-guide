@@ -5,10 +5,12 @@
   <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
   <script type="text/babel">
     const allItems = [
-      {id: 'a', value: 'apple'},
-      {id: 'o', value: 'orange'},
-      {id: 'g', value: 'grape'},
-      {id: 'p', value: 'pear'},
+      {id: 1, value: 'Arabian'},
+      {id: 2, value: 'Appaloosa'},
+      {id: 3, value: 'Paint Horse'},
+      {id: 4, value: 'Quarter Horse'},
+      {id: 5, value: 'Thoroughbred'},
+      {id: 6, value: 'Mustang'},
     ]
 
     function App() {
@@ -29,7 +31,7 @@
           </button>
           <ul style={{listStyle: 'none', paddingLeft: 0}}>
             {items.map(item => (
-              <li>
+              <li key={item.id}>
                 <button onClick={() => removeItem(item)}>remove</button>{' '}
                 <label htmlFor={`${item.value}-input`}>{item.value}</label>{' '}
                 <input id={`${item.value}-input`} defaultValue={item.value} />
@@ -41,9 +43,8 @@
     }
 
     ReactDOM.render(<App />, document.getElementById('root'))
-  </script>
 
-  <script type="text/babel">
+    /*
     function FocusDemo() {
       const [items, setItems] = React.useState([
         {id: 'a', value: 'apple'},
@@ -64,13 +65,13 @@
           <div>
             <h1>Without Key</h1>
             {items.map(item => (
-              <input value={item.value} />
+              <input key={item.id} value={item.value} />
             ))}
           </div>
           <div>
             <h1>With Key as Index</h1>
             {items.map((item, index) => (
-              <input key={index} value={item.value} />
+              <input key={item.id} value={item.value} />
             ))}
           </div>
           <div>
@@ -101,6 +102,7 @@
       return array
     }
     // uncomment this line to demo:
-    // ReactDOM.render(<FocusDemo />, document.getElementById('root'))
+     ReactDOM.render(<FocusDemo />, document.getElementById('root'))
+     */
   </script>
 </body>

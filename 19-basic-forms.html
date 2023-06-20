@@ -8,13 +8,13 @@
       function handleSubmit(event) {
         event.preventDefault()
         const username = event.target.elements.usernameInput.value
-        alert(`You entered: ${username}`)
+        alert(`you typed ${username}`)
       }
 
       return (
-        <form onSubmit={handleSubmit}>
+        <form>
           <div>
-            <label htmlFor="usernameInput">Username:</label>
+            <label htmlFor="usernameInput">Username: </label>
             <input id="usernameInput" type="text" />
           </div>
           <button type="submit">Submit</button>

@@ -5,9 +5,10 @@
   <script type="text/javascript">
     const rootElement = document.getElementById('root')
     const element = React.createElement('div', {
-      className: 'container',
-      children: 'Hello World',
+      children: React.createElement('span', null, 'this is memory try', ' 2'),
+      className: 'container'
     })
     ReactDOM.render(element, rootElement)
+    //you have been successful!//
   </script>
 </body>

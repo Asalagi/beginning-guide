@@ -4,12 +4,20 @@
   <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
   <style>
+   * {
+      background-color: rgb(238, 214, 184);
+    }
     .box {
-      border: 1px solid #333;
+      border: 3px solid black;
+      border-style: dashed;
+      border-radius: 10px;
+      margin: 5px;
+      padding: 3px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       text-align: center;
+      font-family: Georgia;
     }
     .box--large {
       width: 270px;
@@ -23,31 +31,36 @@
       width: 90px;
       height: 90px;
     }
+    .box--itty {
+      width: 90px;
+      height: 30px;
+    }
   </style>
   <script type="text/babel">
-    function Box({style, size, className = '', ...rest}) {
+    function Box({className = '', style, size, ...rest}) {
       const sizeClassName = size ? `box--${size}` : ''
       return (
-        <div
-          className={`box ${className} ${sizeClassName}`}
-          style={{fontStyle: 'italic', ...style}}
-          {...rest}
+        <div className={`box ${className} ${sizeClassName}`}
+        style={{fontStyle: 'italic', ...style}}
+        {...rest}
         />
       )
     }
 
     const element = (
       <div>
-        <Box size="small" style={{backgroundColor: 'lightblue'}}>
-          small lightblue box
+        <Box size="small" style={{backgroundColor: 'seagreen'}}>
+          Small Pasture
         </Box>
-        <Box size="medium" style={{backgroundColor: 'pink'}}>
-          medium pink box
+        <Box size="medium" style={{backgroundColor: 'seagreen'}}>
+          Medium Pasture
         </Box>
-        <Box size="large" style={{backgroundColor: 'orange'}}>
-          large orange box
+        <Box size="large" style={{backgroundColor: 'seagreen'}}>
+          Large Pasture
+          <Box size="itty" style={{backgroundColor: '#543', margin: 'auto'}}>
+          Shed
         </Box>
-        <Box>sizeless box</Box>
+        </Box>
       </div>
     )
 

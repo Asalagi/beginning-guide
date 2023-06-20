@@ -1,38 +1,40 @@
-<body>
-  <div id="root"></div>
-  <script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
-  <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
-  <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
-  <!--
-    The next two scripts don't appear in the videos.
-    To learn why these two scripts were added, read:
-    https://github.com/kentcdodds/beginners-guide-to-react/issues/3
-  -->
-  <script src="https://unpkg.com/msw@0.20.5/lib/umd/index.js"></script>
-  <script src="/pokemon-api.js"></script>
-
-  <script type="text/babel">
-    function PokemonInfo({pokemonName}) {
+function PokemonInfo({pokemonName}) {
+    const [status, setStatus] = React.useState('idle')
     const [pokemon, setPokemon] = React.useState(null)
+    const [error, setError] = React.useState(null)
 
     React.useEffect(() => {
         if (!pokemonName) {
             return 
         }
-        fetchPokemon(pokemonName).then(pokemonData => {
-            setPokemon(pokemonData)
-        })
+        setStatus('pending')
+        fetchPokemon(pokemonName).then(
+            pokemonData => {
+                setStatus('resolved')
+                setPokemon(pokemonData)
+            },
+            errorData => {
+                setStatus('rejected')
+                setError(errorData)
+            },
+        )
     }, [pokemonName])
 
-    if (!pokemonName) {
+    if (status === 'idle') {
         return 'Submit a pokemon'
     }
 
-    if (!pokemon) {
+    if (status === 'rejected') {
+        return 'Something went wrong...'
+    }
+
+    if (status === 'pending') {
         return '...loading'
     }
 
-    return <pre>{JSON.stringify(pokemon, null, 2)}</pre>
+    if (status === 'resolved') {
+        return <pre>{JSON.stringify(pokemon, null, 2)}</pre>
+    }
 }
 
 function App() {
@@ -48,8 +50,8 @@ function App() {
             <form onSubmit={handleSubmit}>
                 <label htmlFor="pokemonName">Pokemon Name</label>
                 <div>
-                <input id="pokemonName" />
-                <button type="submit">Submit</button>
+                    <input id="pokemonName" />
+                    <button type="submit">Submit</button>
                 </div>
             </form>
             <hr />
@@ -92,5 +94,3 @@ function fetchPokemon(name) {
 }
 
 ReactDOM.render(<App />, document.getElementById('root'))
-  </script>
-  </body>

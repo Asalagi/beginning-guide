@@ -10,10 +10,12 @@
     function SayHello({firstName, lastName}) {
       return (
         <div>
-          Hello {firstName} {lastName}!
+          I can't get this one, {firstName} {lastName}!
+          <p>Got it after SOOOOO many tries!</p>
         </div>
       )
     }
+
     SayHello.propTypes = {
       firstName: PropTypes.string.isRequired,
       lastName: PropTypes.string.isRequired,
@@ -22,5 +24,5 @@
     const element = <SayHello firstName={false} />
 
     ReactDOM.render(element, rootElement)
-  </script>
+</script>
 </body>

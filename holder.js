@@ -13,31 +13,47 @@
 
   <script type="text/babel">
     function PokemonInfo({pokemonName}) {
+    const [status, setStatus] = React.useState('idle')
     const [pokemon, setPokemon] = React.useState(null)
+    const [error, setError] = React.useState(null)
 
     React.useEffect(() => {
         if (!pokemonName) {
             return 
         }
-        fetchPokemon(pokemonName).then(pokemonData => {
-            setPokemon(pokemonData)
-        })
+        setStatus('pending')
+        fetchPokemon(pokemonName).then(
+            pokemonData => {
+                setStatus('resolved')
+                setPokemon(pokemonData)
+            },
+            errorData => {
+                setStatus('rejected')
+                setError('errorData)')
+            },
+        )
     }, [pokemonName])
 
-    if (!pokemonName) {
+    if (status === 'idle') {
         return 'Submit a pokemon'
     }
 
-    if (!pokemon) {
+    if (status === 'rejected') {
+        return 'Something went wrong...'
+    }
+
+    if (status === 'pending') {
         return '...loading'
     }
 
-    return <pre>{JSON.stringify(pokemon, null, 2)}</pre>
+    if (status === 'resolved') {
+        return <pre>{JSON.stringify(pokemon, null, 2)}</pre>
+    }
 }
 
 function App() {
     const [pokemonName, setPokemonName] = React.useState('')
-
+    
     function handleSubmit(event) {
         event.preventDefault()
         setPokemonName(event.target.elements.pokemonName.value)
@@ -45,15 +61,15 @@ function App() {
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="pokemonName">Pokemon Name</label>
-                <div>
-                <input id="pokemonName" />
-                <button type="submit">Submit</button>
-                </div>
-            </form>
-            <hr />
-            <PokemonInfo pokemonName={pokemonName} />
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="pokemonName">Pokemon Name</label>
+            <div>
+              <input id="pokemonName" />
+              <button type="submit">Submit</button>
+            </div>
+          </form>
+          <hr />
+          <PokemonInfo pokemonName={pokemonName} />
         </div>
     )
 }
@@ -84,7 +100,7 @@ function fetchPokemon(name) {
         },
         body: JSON.stringify({
             query: pokemonQuery,
-            variables: {name},
+            variables: {name}, 
         }),
     })
     .then(r => r.json())
@@ -93,4 +109,4 @@ function fetchPokemon(name) {
 
 ReactDOM.render(<App />, document.getElementById('root'))
   </script>
-  </body>
+</body>

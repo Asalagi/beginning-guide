@@ -7,20 +7,18 @@
     function CharacterCount({text}) {
       return (
         <div>
-          {`The text "${text}" has `}
-          {text.length ? <strong>{text.length}</strong> : 'No'}
+          {`This text "${text}" has `}
+          {text.length ? <strong>{text.length}</strong> : 'no'}
           {' characters'}
         </div>
       )
     }
-
-    const element = (
-      <>
-        <CharacterCount text="Hello World" />
-        <CharacterCount text="" />
-      </>
-    )
-
-    ReactDOM.render(element, document.getElementById('root'))
+  const element = (
+    <React.Fragment>
+      <CharacterCount text="memory try 6" />
+      <CharacterCount text="" />
+    </React.Fragment>
+  )
+  ReactDOM.render(element, document.getElementById('root'))
   </script>
 </body>

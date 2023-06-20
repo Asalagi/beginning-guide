@@ -72,16 +72,16 @@
       return (
         <div>
           <label>
-            <input
+            <input 
               type="checkbox"
               checked={showTilt}
-              onChange={e => setShowTilt(e.target.checked)}
-            />{' '}
-            show tilt
+              onChange={e => setShowTilt(e.target.checked)} />
+              {' '}
+              show tilt 2
           </label>
           {showTilt ? (
             <Tilt>
-              <div className="totally-centered">vanilla-tilt.js</div>
+              <div className="totally-center">vanilla-tilt.js</div>
             </Tilt>
           ) : null}
         </div>

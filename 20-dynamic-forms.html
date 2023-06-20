@@ -1,37 +1,85 @@
 <body>
   <div id="root"></div>
+  <style>
+    input {
+      width: 100px;
+      border: 1px solid  black;
+      margin-bottom: 5px;
+    }
+    input[type=number] {
+      width: 50px;
+      border: 1px solid  black;
+      margin-bottom: 5px;
+    }
+    select {
+      width: 100px;
+      border: 3px solid  black;
+    }
+    button {
+      width: 100px;
+      background: lightskyblue;
+      border: 3px solid black;
+      margin-right: 3px;
+    }
+    textarea {
+      width: 300px;
+      height: 200px;
+      border: 3px solid  black;
+    }
+  </style>
   <script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
   <script type="text/babel">
-    function UsernameForm() {
-      const [username, setUsername] = React.useState('')
-      const isLowerCase = username === username.toLowerCase()
-      const error = isLowerCase ? null : 'Username must be lower case'
+    function RegisterForm() {
+      const [name, setName] = React.useState('')
+      const [email, setEmail] = React.useState('')
+      const [age, setAge] = React.useState('')
+      const isLowerCase = name === name.toLowerCase()
+      const error = isLowerCase ? null : 'username must be lower case'
 
       function handleSubmit(event) {
         event.preventDefault()
-        alert(`You entered: ${username}`)
+        alert(`You have enetered ${name} as your name and ${email} as your email. Your age is ${age}!`)
+      }
+
+      function handleClear(event) {
+        setFormData(initialFormData)
       }
 
       function handleChange(event) {
-        setUsername(event.target.value)
+        setName(event.target.value)
+      }
+
+      function handleEmailChange(event) {
+        setEmail(event.target.value)
+      }
+
+      function handleAgeChange(event) {
+        setAge(event.target.value)
       }
 
       return (
-        <form onSubmit={handleSubmit}>
+        <form>
           <div>
-            <label htmlFor="usernameInput">Username:</label>
-            <input id="usernameInput" type="text" onChange={handleChange} />
+            <label htmlFor="name">Name: </label>
+            <input id="name" type="text" onChange={handleChange} />
+          </div>
+          <div>
+            <label htmlFor="email">Email: </label>
+            <input id="email" type="text" onChange={handleEmailChange}/>
+          </div>
+          <div>
+            <label htmlFor="age">Age: </label>
+            <input id="age" type="number" onChange={handleAgeChange} />
           </div>
           <div style={{color: 'red'}}>{error}</div>
-          <button disabled={Boolean(error)} type="submit">
-            Submit
-          </button>
+          <button disabled={Boolean(error)} type="submit" onClick={handleSubmit}>Submit</button> 
+          <button type="submit" onClick={handleClear}>Clear</button>
         </form>
       )
     }
 
-    ReactDOM.render(<UsernameForm />, document.getElementById('root'))
+    ReactDOM.render(<RegisterForm />, document.getElementById('root'))
   </script>
 </body>
